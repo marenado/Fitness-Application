@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Progress Record Details</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <style>
+        .container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            width: 50%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Progress Record Details</h1>
+    <div class="progress-details">
+        <p><strong>Date:</strong> <span th:text="${#dates.format(progress.date, 'dd/MM/yyyy')}"></span></p>
+        <p><strong>Completed Workouts:</strong> <span th:text="${progress.completedWorkouts}"></span></p>
+        <p><strong>Details:</strong> <span th:text="${progress.details}"></span></p>
+    </div>
+
+    <h2>Feedback</h2>
+    <div th:if="${feedback != null}">
+        <p><strong>Comment:</strong> <span th:text="${feedback.comment}"></span></p>
+        <p><strong>Rating:</strong> <span th:text="${feedback.rating}"></span></p>
+        <p><strong>Date:</strong> <span th:text="${#dates.format(feedback.date, 'dd/MM/yyyy')}"></span></p>
+    </div>
+
+    <div th:if="${feedback == null}">
+        <h2>Provide Feedback</h2>
+        <form th:action="@{/trainer/progress/{progressId}/feedback(progressId=${progress.id})}" method="post">
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea id="comment" name="comment" required></textarea><br>
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                <input type="number" id="rating" name="rating" min="1" max="5" required><br>
+            </div>
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <div th:if="${param.error == 'feedbackExists'}">
+        <p style="color: red;">Feedback already exists for this progress record.</p>
+    </div>
+</div>
+</body>
+</html>

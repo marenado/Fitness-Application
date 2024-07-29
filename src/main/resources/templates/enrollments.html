@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Client Enrollments</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Enrollments for Client</h1>
+<ul>
+    <li th:each="enrollment : ${enrollments}">
+        <a th:href="@{/trainer/enrollments/{enrollmentId}/progress(enrollmentId=${enrollment.id})}"
+           th:text="${enrollment.plan.title}">Enrollment Plan</a>
+    </li>
+</ul>
+</body>
+</html>

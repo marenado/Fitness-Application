@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Progress Records</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <style>
+        .progress-list {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            width: 50%;
+            margin: auto;
+        }
+        .progress-item {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Progress Records</h1>
+<div class="progress-list">
+    <ul>
+        <li th:each="progress : ${progressRecords}" class="progress-item">
+            <a th:href="@{/trainer/progress/{progressId}/view(progressId=${progress.id})}"
+               th:text="${#dates.format(progress.date, 'dd/MM/yyyy')}">Progress Date</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
